@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-scripture: var(--font-geist-sans);
+
+  /* Scholarly dark theme */
+  --bg: #0a0c12;
+  --surface: #12151e;
+  --surface-2: #1a1f2b;
+  --text: #e8e4d9;
+  --text-muted: #9a9588;
+  --accent: #c5a26f;
+  --accent-dim: #8f7048;
+  --border: rgba(197, 162, 111, 0.15);
+  --greek: #d4c7a8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans);
+}
+
+/* Scripture reading styles */
+.scripture {
+  font-family: var(--font-scripture);
+  font-feature-settings: "kern" "liga" "clig" "calt";
+  line-height: 1.75;
+}
+
+.greek {
+  font-family: var(--font-scripture);
+  font-size: 1.05em;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--greek);
+}
+
+.verse-num {
+  font-family: var(--font-geist-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  vertical-align: super;
+  margin-right: 0.35em;
+  user-select: none;
+}
+
+/* Interactive study */
+.word-btn {
+  transition: all 0.1s ease;
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin: -1px -3px;
+}
+
+.word-btn:hover {
+  background: rgba(197, 162, 111, 0.12);
+  color: var(--accent);
+}
+
+.study-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.chip {
+  transition: all 0.1s ease;
+}
+
+.chip.active {
+  background-color: var(--accent);
+  color: #0a0c12;
+  border-color: var(--accent);
+}
+
+.passage-text {
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
