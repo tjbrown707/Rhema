@@ -75,7 +75,7 @@ export default function RhemaApp() {
               {passages[key].ref}
             </button>
           ))}
-          <span className="self-center text-xs text-[var(--text-muted)] ml-3">More passages + full data ingestion coming</span>
+          <span className="self-center text-xs text-[var(--text-muted)] ml-3">Greek + Hebrew • full canon ingestion next</span>
         </div>
       </div>
 

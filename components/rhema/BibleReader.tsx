@@ -44,28 +44,47 @@ export function BibleReader({ passage, onWordClick }: BibleReaderProps) {
             </div>
           )}
 
-          {/* Token chips for study (clickable words) */}
+          {/* Inline clickable Greek words + token list */}
           {verse.tokens.length > 0 && (
             <div className="mt-5 border-t border-[var(--border)] pt-4">
-              <div className="mb-2 text-[10px] uppercase tracking-[1.5px] text-[var(--accent)]">Key words (tap for study)</div>
-              <div className="flex flex-wrap gap-2">
-                {verse.tokens.slice(0, 8).map((token) => (
-                  <button
-                    key={token.id}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onWordClick?.(token)
-                    }}
-                    className="word-btn rounded border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-sm hover:border-[var(--accent)]"
-                    title={token.gloss}
-                  >
-                    {token.text}
-                    {token.strongs && <span className="ml-1 text-[10px] text-[var(--text-muted)]">({token.strongs})</span>}
-                  </button>
-                ))}
-                {verse.tokens.length > 8 && (
-                  <span className="self-center text-xs text-[var(--text-muted)]">+{verse.tokens.length - 8} more</span>
-                )}
+              <div className="mb-2 text-[10px] uppercase tracking-[1.5px] text-[var(--accent)]">Original text — tap words for meaning</div>
+              <p className="greek text-lg mb-4 leading-tight select-text">
+                {verse.tokens.map((token, idx) => {
+                  const isWord = token.strongs || token.lemma;
+                  if (!isWord) return <span key={idx}>{token.text}</span>;
+                  return (
+                    <button
+                      key={token.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onWordClick?.(token);
+                      }}
+                      className="word-btn mx-0.5 px-0.5 hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] rounded transition-colors"
+                      title={`${token.gloss || ''} ${token.strongs ? `(${token.strongs})` : ''}`}
+                    >
+                      {token.text}
+                    </button>
+                  );
+                })}
+              </p>
+
+              <div className="text-[10px] uppercase tracking-[1.5px] text-[var(--accent)] mb-1.5">All words in verse</div>
+              <div className="flex flex-wrap gap-1.5">
+                {verse.tokens
+                  .filter(t => t.strongs || t.lemma)
+                  .map((token) => (
+                    <button
+                      key={token.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onWordClick?.(token);
+                      }}
+                      className="word-btn rounded border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs hover:border-[var(--accent)]"
+                    >
+                      {token.text}
+                      {token.strongs && <span className="ml-1 text-[var(--text-muted)]">{token.strongs}</span>}
+                    </button>
+                  ))}
               </div>
             </div>
           )}
